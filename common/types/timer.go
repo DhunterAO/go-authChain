@@ -7,12 +7,12 @@ import (
 )
 
 type MyTimer struct {
-	Name      string
-	Delay     uint64
-	Target    func()
-	Timer     *time.Timer
+	Name   string
+	Delay  uint64
+	Target func()
+	Timer  *time.Timer
 
-	logger    *log.Logger
+	logger *log.Logger
 
 	Running   bool
 	RunningMu sync.Mutex

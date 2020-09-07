@@ -53,7 +53,7 @@ func RecoverPkFromSig(hash *Hash, sig *Signature) (*Pubkey, error) {
 	return BytesToPubkey(CompressPubkey(pk)), err
 }
 
-func (pk *Pubkey)Address() (*Address, error) {
+func (pk *Pubkey) Address() (*Address, error) {
 	ecdsaPk, err := DecompressPubkey(pk.Bytes())
 	if err != nil {
 		return nil, err

@@ -47,7 +47,7 @@ func GoPost(ip string, url string, json []byte) {
 }
 
 func Post(ip string, url string, json []byte) bool {
-	addr := "http://"+ ip + url
+	addr := "http://" + ip + url
 	fmt.Println(addr)
 	resp, err := http.Post(addr, "application/json", bytes.NewReader(json))
 	fmt.Println(resp, err)
