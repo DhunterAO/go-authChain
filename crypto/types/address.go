@@ -1,14 +1,14 @@
 package types
 
 import (
-	"github.com/goAuthChain/crypto/ecdsa"
+	"crypto/ecdsa"
 	"database/sql/driver"
 	"encoding/hex"
 	"fmt"
-	"goauth/crypto/sha3"
-	"goauth/rlp"
-	"goauth/util/hexutil"
-	"goauth/util/types"
+	"github.com/DhunterAO/goAuthChain/common/hexutil"
+	types2 "github.com/DhunterAO/goAuthChain/common/types"
+	"github.com/DhunterAO/goAuthChain/crypto/sha3"
+	"github.com/DhunterAO/goAuthChain/rlp"
 	"math/big"
 	"reflect"
 )
@@ -35,15 +35,15 @@ func BigToAddress(b *big.Int) *Address { return BytesToAddress(b.Bytes()) }
 
 // HexToAddress returns Address with byte values of s.
 // If s is larger than len(h), s will be cropped from the left.
-func HexToAddress(s string) *Address { return BytesToAddress(types.FromHex(s)) }
+func HexToAddress(s string) *Address { return BytesToAddress(types2.FromHex(s)) }
 
 // IsHexAddress verifies whether a string can represent a valid hex-encoded
 // Ethereum address or not.
 func IsHexAddress(s string) bool {
-	if types.HasHexPrefix(s) {
+	if types2.HasHexPrefix(s) {
 		s = s[2:]
 	}
-	return len(s) == 2*AddressLength && types.IsHex(s)
+	return len(s) == 2*AddressLength && types2.IsHex(s)
 }
 
 // Bytes gets the string representation of the underlying address.

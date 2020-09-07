@@ -28,7 +28,7 @@ func TestJsonToTimestamp(t *testing.T) {
 
 func TestTimestamp_ToUint64(t *testing.T) {
 	ts := CurrentTime()
-	tsInt := ts.ToUint64()
+	tsInt := ts.Uint64()
 	fmt.Println(tsInt)
 }
 

@@ -6,7 +6,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"goauth/util/math"
+	"github.com/DhunterAO/goAuthChain/common/math"
 	"io"
 	"io/ioutil"
 	"math/big"
@@ -26,7 +26,6 @@ func GenerateKey() (*ecdsa.PrivateKey, error) {
 func ToECDSA(d []byte) (*ecdsa.PrivateKey, error) {
 	return toECDSA(d, true)
 }
-
 
 // ToECDSAUnsafe blindly converts a binary blob to a private key. It should almost
 // never be used unless you are sure the input is valid and want to avoid hitting

@@ -3,15 +3,14 @@ package types
 import (
 	"bytes"
 	"crypto/ecdsa"
-	"goauth/util/types"
+	types2 "github.com/DhunterAO/goAuthChain/common/types"
 	"io/ioutil"
 	"os"
 	"testing"
 )
 
-
 func TestLoadECDSAFile(t *testing.T) {
-	keyBytes := types.FromHex(testPrivHex)
+	keyBytes := types2.FromHex(testPrivHex)
 	fileName0 := "test_key0"
 	fileName1 := "test_key1"
 	checkKey := func(k *ecdsa.PrivateKey) {

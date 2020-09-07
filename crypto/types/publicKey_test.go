@@ -4,7 +4,7 @@ import (
 	"crypto/ecdsa"
 	"encoding/hex"
 	"fmt"
-	"goauth/util/hexutil"
+	"github.com/DhunterAO/goAuthChain/common/hexutil"
 	"reflect"
 	"testing"
 )

@@ -1,4 +1,4 @@
-// Copyright 2017 The go-ethereum Authors
+// Copyright 2014 The go-ethereum Authors
 // This file is part of the go-ethereum library.
 //
 // The go-ethereum library is free software: you can redistribute it and/or modify
@@ -14,30 +14,17 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
 
-package hexutil_test
+package common
 
-import (
-	"encoding/json"
-	"fmt"
+import "math/big"
+
+// Common big integers often used
+var (
+	Big1   = big.NewInt(1)
+	Big2   = big.NewInt(2)
+	Big3   = big.NewInt(3)
+	Big0   = big.NewInt(0)
+	Big32  = big.NewInt(32)
+	Big256 = big.NewInt(256)
+	Big257 = big.NewInt(257)
 )
-
-type MyType [5]byte
-
-func (v *MyType) UnmarshalText(input []byte) error {
-	return UnmarshalFixedText("MyType", input, v[:])
-}
-
-func (v MyType) String() string {
-	return Bytes(v[:]).String()
-}
-
-func ExampleUnmarshalFixedText() {
-	var v1, v2 MyType
-	fmt.Println("v1 error:", json.Unmarshal([]byte(`"0x01"`), &v1))
-	fmt.Println("v2 error:", json.Unmarshal([]byte(`"0x0101010101"`), &v2))
-	fmt.Println("v2:", v2)
-	// Output:
-	// v1 error: hex string has length 2, want 10 for MyType
-	// v2 error: <nil>
-	// v2: 0x0101010101
-}

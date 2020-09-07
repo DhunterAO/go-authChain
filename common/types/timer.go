@@ -1,7 +1,7 @@
 package types
 
 import (
-	"goauth/log"
+	"github.com/DhunterAO/goAuthChain/log"
 	"sync"
 	"time"
 )

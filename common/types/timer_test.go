@@ -2,8 +2,8 @@ package types
 
 import (
 	"fmt"
+	"github.com/DhunterAO/goAuthChain/log"
 	"testing"
-	"time"
 )
 
 var timer *MyTimer
@@ -14,7 +14,7 @@ func echo() {
 }
 
 func TestNewMyTimer(t *testing.T) {
-	timer = NewMyTimer("testTimer", 2, echo)
-	timer.Reset(1)
-	time.Sleep(10 * time.Second)
+	timer = NewMyTimer("testTimer", 2, echo, log.NewTestLogger())
+	//timer.Reset(1)
+	//time.Sleep(10 * time.Second)
 }

@@ -1,7 +1,7 @@
 package types
 
 import (
-	util2 "goauth/util"
+	"github.com/DhunterAO/goAuthChain/common"
 	"math/big"
 )
 
@@ -44,7 +44,7 @@ func BytesToSignature(b []byte) *Signature {
 }
 
 func (sig *Signature) Hex() string {
-	return string(util2.Expand(sig[:]))
+	return string(common.Expand(sig[:]))
 }
 
 func HexToSignature(hex string) *Signature {
@@ -61,11 +61,10 @@ func (sig *Signature) Pure() []byte {
 	return sig[:SignatureLength-1]
 }
 
-
 // ValidateSignatureValues verifies whether the signature values are valid with
 // the given chain rules. The v value is assumed to be either 0 or 1.
 func ValidateSignatureValues(v byte, r, s *big.Int, homestead bool) bool {
-	if r.Cmp(util2.Big1) < 0 || s.Cmp(util2.Big1) < 0 {
+	if r.Cmp(common.Big1) < 0 || s.Cmp(common.Big1) < 0 {
 		return false
 	}
 	// reject upper range of s values (ECDSA malleability)

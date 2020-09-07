@@ -4,9 +4,9 @@ import (
 	"database/sql/driver"
 	"encoding/hex"
 	"fmt"
-	"goauth/crypto/sha3"
-	"goauth/util/hexutil"
-	"goauth/util/types"
+	"github.com/DhunterAO/goAuthChain/common/hexutil"
+	types2 "github.com/DhunterAO/goAuthChain/common/types"
+	"github.com/DhunterAO/goAuthChain/crypto/sha3"
 	"math/big"
 	"math/rand"
 	"reflect"
@@ -35,7 +35,7 @@ func BigToHash(b *big.Int) Hash { return BytesToHash(b.Bytes()) }
 
 // HexToHash sets byte representation of s to hash.
 // If b is larger than len(h), b will be cropped from the left.
-func HexToHash(s string) Hash { return BytesToHash(types.FromHex(s)) }
+func HexToHash(s string) Hash { return BytesToHash(types2.FromHex(s)) }
 
 // Bytes gets the byte representation of the underlying hash.
 func (h Hash) Bytes() []byte { return h[:] }

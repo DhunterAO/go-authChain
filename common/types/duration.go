@@ -3,20 +3,19 @@ package types
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/Dhunter/goAuthChain/util/types"
 )
 
 // Duration represents a duration between start and end
 type Duration struct {
-	Start types.Timestamp `json:"s"`
-	End   types.Timestamp `json:"e"`
+	Start Timestamp `json:"s"`
+	End   Timestamp `json:"e"`
 }
 
-func NewDuration(start types.Timestamp, end types.Timestamp) *Duration {
+func NewDuration(start Timestamp, end Timestamp) *Duration {
 	return &Duration{Start: start, End: end}
 }
 
-func (d *Duration) ContainTime(time types.Timestamp) bool {
+func (d *Duration) ContainTime(time Timestamp) bool {
 	if d.Start > time {
 		return false
 	}
@@ -70,8 +69,8 @@ func (d *Duration) ToMap() map[string]interface{} {
 }
 
 func GenerateTestDuration() *Duration {
-	start := types.RandomTimestamp()
-	end := types.RandomTimestamp()
+	start := RandomTimestamp()
+	end := RandomTimestamp()
 	if start > end {
 		start, end = end, start
 	}

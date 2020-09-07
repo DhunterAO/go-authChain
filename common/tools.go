@@ -1,4 +1,4 @@
-package util
+package common
 
 import (
 	"bytes"
@@ -32,11 +32,11 @@ func PaddedAppend(size uint, src []byte) []byte {
 	return append(dst, src...)
 }
 
-func  String(b []byte) string {
+func String(b []byte) string {
 	return *(*string)(unsafe.Pointer(&b))
 }
 
-func Rcopy(dst []byte, src[]byte) int {
+func Rcopy(dst []byte, src []byte) int {
 	dstLen := len(dst)
 	srcLen := len(src)
 	if srcLen > dstLen {
@@ -94,10 +94,10 @@ func PrettyPrintJson(b []byte) []byte {
 }
 
 func RandString(ulen uint8) string {
-	slen := int(ulen)/2
+	slen := int(ulen) / 2
 	strBytes := make([]byte, slen)
 	for i := 0; i < slen; i += 1 {
-		strBytes[i] = byte(rand.Int()%256)
+		strBytes[i] = byte(rand.Int() % 256)
 	}
 	randStr := string(Expand(strBytes))
 	return randStr

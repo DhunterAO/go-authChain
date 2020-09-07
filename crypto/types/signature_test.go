@@ -19,14 +19,13 @@ package types
 import (
 	"bytes"
 	"crypto/ecdsa"
-	"goauth/util"
-	"goauth/util/types"
+	"github.com/DhunterAO/goAuthChain/common"
+	"github.com/DhunterAO/goAuthChain/common/hexutil"
+	"github.com/DhunterAO/goAuthChain/common/math"
+	types2 "github.com/DhunterAO/goAuthChain/common/types"
 	"math/big"
 	"reflect"
 	"testing"
-
-	"goauth/util/hexutil"
-	"goauth/util/math"
 )
 
 var (
@@ -35,8 +34,8 @@ var (
 	testpubkey  = hexutil.MustDecode("0x04e32df42865e97135acfb65f3bae71bdc86f4d49150ad6a440b6f15878109880a0a2b2667f7e725ceea70c673093bf67663e0312623c8e091b13cf2c0f11ef652")
 	testpubkeyc = hexutil.MustDecode("0x02e32df42865e97135acfb65f3bae71bdc86f4d49150ad6a440b6f15878109880a")
 
-    testAddrHex = "970e8128ab834e8eac17ab8e3812f010678cf791"
-    testPrivHex = "289c2857d4598e37fb9647507e47a309d6133539bf21a8b9cb6df88fd5232032"
+	testAddrHex = "970e8128ab834e8eac17ab8e3812f010678cf791"
+	testPrivHex = "289c2857d4598e37fb9647507e47a309d6133539bf21a8b9cb6df88fd5232032"
 )
 
 func TestEcrecover(t *testing.T) {
@@ -67,13 +66,13 @@ func TestVerifySignature(t *testing.T) {
 	if VerifySignature(testpubkey, testmsg, nil) {
 		t.Errorf("nil signature valid")
 	}
-	if VerifySignature(testpubkey, testmsg, append(types.CopyBytes(sig), 1, 2, 3)) {
+	if VerifySignature(testpubkey, testmsg, append(types2.CopyBytes(sig), 1, 2, 3)) {
 		t.Errorf("signature valid with extra bytes at the end")
 	}
 	if VerifySignature(testpubkey, testmsg, sig[:len(sig)-2]) {
 		t.Errorf("signature valid even though it's incomplete")
 	}
-	wrongkey := types.CopyBytes(testpubkey)
+	wrongkey := types2.CopyBytes(testpubkey)
 	wrongkey[10]++
 	if VerifySignature(wrongkey, testmsg, sig) {
 		t.Errorf("signature valid with with wrong public key")
@@ -104,7 +103,7 @@ func TestDecompressPubkey(t *testing.T) {
 	if _, err := DecompressPubkey(testpubkeyc[:5]); err == nil {
 		t.Errorf("no error for incomplete pubkey")
 	}
-	if _, err := DecompressPubkey(append(types.CopyBytes(testpubkeyc), 1, 2, 3)); err == nil {
+	if _, err := DecompressPubkey(append(types2.CopyBytes(testpubkeyc), 1, 2, 3)); err == nil {
 		t.Errorf("no error for pubkey with extra bytes at the end")
 	}
 }
@@ -214,7 +213,7 @@ func TestPythonIntegration(t *testing.T) {
 	msg0 := Keccak256([]byte("foo"))
 	sig0, _ := Sign(msg0, k0)
 
-	msg1 := types.FromHex("00000000000000000000000000000000")
+	msg1 := types2.FromHex("00000000000000000000000000000000")
 	sig1, _ := Sign(msg0, k0)
 
 	t.Logf("msg: %x, privkey: %s sig: %x\n", msg0, kh, sig0)
@@ -228,9 +227,9 @@ func TestValidateSignatureValues(t *testing.T) {
 		}
 	}
 	minusOne := big.NewInt(-1)
-	one := util.Big1
-	zero := util.Big0
-	secp256k1nMinus1 := new(big.Int).Sub(secp256k1N, util.Big1)
+	one := common.Big1
+	zero := common.Big0
+	secp256k1nMinus1 := new(big.Int).Sub(secp256k1N, common.Big1)
 
 	// correct v,r,s
 	check(true, 0, one, one)

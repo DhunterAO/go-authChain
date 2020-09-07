@@ -2,7 +2,7 @@ package crypto
 
 import (
 	"fmt"
-	"goauth/crypto/types"
+	"github.com/DhunterAO/goAuthChain/crypto/types"
 	"testing"
 )
 
@@ -27,7 +27,7 @@ func TestSignAndVerify(t *testing.T) {
 }
 
 func TestGenerateKey(t *testing.T) {
-	sk, _ := types.LoadECDSA("../data/keys/student.key")
+	sk, _ := types.LoadECDSA("../data/keys/test.key")
 	addr, _ := PubkeyToAddress(types.BytesToPubkey(types.CompressPubkey(&sk.PublicKey)))
 	fmt.Println(addr.Hex())
 }

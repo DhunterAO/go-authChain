@@ -37,10 +37,11 @@ import (
 	"encoding/hex"
 	"flag"
 	"fmt"
+	"github.com/DhunterAO/goAuthChain/crypto/types"
 	"math/big"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/DhunterAO/goAuthChain/crypto"
 )
 
 var dumpEnc bool
@@ -234,7 +235,7 @@ func BenchmarkGenSharedKeyP256(b *testing.B) {
 
 // Benchmark the generation of S256 shared keys.
 func BenchmarkGenSharedKeyS256(b *testing.B) {
-	prv, err := GenerateKey(rand.Reader, crypto.S256(), nil)
+	prv, err := GenerateKey(rand.Reader, types.S256(), nil)
 	if err != nil {
 		fmt.Println(err.Error())
 		b.FailNow()

@@ -21,7 +21,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"goauth/util/hexutil"
+	"github.com/DhunterAO/goAuthChain/common/hexutil"
 )
 
 // Tests that data bitset encoding and decoding works and is bijective.

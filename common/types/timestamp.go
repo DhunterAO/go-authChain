@@ -3,6 +3,7 @@ package types
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/DhunterAO/goAuthChain/common"
 	"math/rand"
 	"strconv"
 	"time"
@@ -10,7 +11,7 @@ import (
 
 type Timestamp uint64
 
-const MaxTimestamp = Timestamp(MaxUint64)
+const MaxTimestamp = Timestamp(common.MaxUint64)
 
 func CurrentTime() Timestamp {
 	return Timestamp(time.Now().Unix())

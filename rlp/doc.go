@@ -14,17 +14,20 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
 
-package util
+/*
+Package rlp implements the RLP serialization format.
 
-import "math/big"
+The purpose of RLP (Recursive Linear Prefix) is to encode arbitrarily
+nested arrays of binary data, and RLP is the main encoding method used
+to serialize objects in Ethereum. The only purpose of RLP is to encode
+structure; encoding specific atomic data types (eg. strings, ints,
+floats) is left up to higher-order protocols; in Ethereum integers
+must be represented in big endian binary form with no leading zeroes
+(thus making the integer value zero equivalent to the empty byte
+array).
 
-// Common big integers often used
-var (
-	Big1   = big.NewInt(1)
-	Big2   = big.NewInt(2)
-	Big3   = big.NewInt(3)
-	Big0   = big.NewInt(0)
-	Big32  = big.NewInt(32)
-	Big256 = big.NewInt(256)
-	Big257 = big.NewInt(257)
-)
+RLP values are distinguished by a type tag. The type tag precedes the
+value in the input stream and defines the size and kind of the bytes
+that follow.
+*/
+package rlp

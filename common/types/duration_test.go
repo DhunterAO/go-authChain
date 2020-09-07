@@ -1,7 +1,7 @@
 package types
 
 import (
-	util2 "goauth/util"
+	"github.com/DhunterAO/goAuthChain/common"
 	"testing"
 )
 
@@ -12,6 +12,6 @@ func TestDuration_DeepCopy(t *testing.T) {
 	d.Start += 1
 	d.End += 1
 	//fmt.Println(d.ToString(), d2.ToString())
-	util2.PrettyPrintJson(d.ToJson())
-	util2.PrettyPrintJson(d2.ToJson())
+	common.PrettyPrintJson(d.ToJson())
+	common.PrettyPrintJson(d2.ToJson())
 }
