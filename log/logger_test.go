@@ -7,8 +7,7 @@ import (
 )
 
 func TestLogger_Info(t *testing.T) {
-
-	testLogFile, err  := os.Create("test.log")
+	testLogFile, err := os.Create("test.log")
 	if err != nil {
 		Fatalln("open file error !")
 	}
