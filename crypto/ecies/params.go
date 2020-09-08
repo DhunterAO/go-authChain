@@ -40,15 +40,22 @@ import (
 	"crypto/sha256"
 	"crypto/sha512"
 	"fmt"
-	"github.com/DhunterAO/goAuthChain/crypto/types"
 	"hash"
+
+	"github.com/DhunterAO/goAuthChain/crypto/types"
 )
 
 var (
 	DefaultCurve                  = types.S256()
 	ErrUnsupportedECDHAlgorithm   = fmt.Errorf("ecies: unsupported ECDH algorithm")
 	ErrUnsupportedECIESParameters = fmt.Errorf("ecies: unsupported ECIES parameters")
+	ErrInvalidKeyLen              = fmt.Errorf("ecies: invalid key size (> %d) in ECIESParams", maxKeyLen)
 )
+
+// KeyLen is limited to prevent overflow of the counter
+// in concatKDF. While the theoretical limit is much higher,
+// no known cipher uses keys larger than 512 bytes.
+const maxKeyLen = 512
 
 type ECIESParams struct {
 	Hash      func() hash.Hash // hash function
@@ -113,4 +120,17 @@ func AddParamsForCurve(curve elliptic.Curve, params *ECIESParams) {
 // Only the curves P256, P384, and P512 are supported.
 func ParamsFromCurve(curve elliptic.Curve) (params *ECIESParams) {
 	return paramsFromCurve[curve]
+}
+
+func pubkeyParams(key *PublicKey) (*ECIESParams, error) {
+	params := key.Params
+	if params == nil {
+		if params = ParamsFromCurve(key.Curve); params == nil {
+			return nil, ErrUnsupportedECIESParameters
+		}
+	}
+	if params.KeyLen > maxKeyLen {
+		return nil, ErrInvalidKeyLen
+	}
+	return params, nil
 }

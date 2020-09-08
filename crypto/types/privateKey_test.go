@@ -45,7 +45,7 @@ func TestLoadECDSAFile(t *testing.T) {
 }
 
 func TestSaveAndLoad(t *testing.T) {
-	fileName := "../data/keys/test.key"
+	fileName := "../../data/keys/test.key"
 	sk, _ := GenerateKey()
 	err := SaveECDSA(fileName, sk)
 	if err != nil {

@@ -102,5 +102,11 @@ func LoadECDSA(file string) (*ecdsa.PrivateKey, error) {
 // restrictive permissions. The key data is saved hex-encoded.
 func SaveECDSA(file string, key *ecdsa.PrivateKey) error {
 	k := hex.EncodeToString(FromECDSA(key))
+	_, err := os.Stat(file)
+	if os.IsNotExist(err) {
+		os.Create(file)
+	} else if err != nil {
+		return err
+	}
 	return ioutil.WriteFile(file, []byte(k), 0600)
 }
