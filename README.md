@@ -1,2 +1,2 @@
-# goAuthChain
-An attributed-based access control system with authorization in blockchain
+# go-BACS
+BACS is a Blockchain-based Access Control System using the attribute-based access control model. BACS provides trustful, decentralized, third-party authorization using the original consortium blockchain.
