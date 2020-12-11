@@ -1,7 +1,6 @@
 package crypto
 
 import (
-	"fmt"
 	"github.com/DhunterAO/goAuthChain/crypto/types"
 	"testing"
 )
@@ -26,8 +25,8 @@ func TestSignAndVerify(t *testing.T) {
 	t.Log(VerifySignature(pub3, hash, sig))
 }
 
-func TestGenerateKey(t *testing.T) {
-	sk, _ := types.LoadECDSA("../data/keys/test.key")
-	addr, _ := PubkeyToAddress(types.BytesToPubkey(types.CompressPubkey(&sk.PublicKey)))
-	fmt.Println(addr.Hex())
-}
+//func TestGenerateKey(t *testing.T) {
+//	sk, _ := types.LoadECDSA("../data/keys/test.key")
+//	addr, _ := PubkeyToAddress(types.BytesToPubkey(types.CompressPubkey(&sk.PublicKey)))
+//	fmt.Println(addr.Hex())
+//}
