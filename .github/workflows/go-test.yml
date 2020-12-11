@@ -28,12 +28,12 @@ jobs:
         uses: Jerome1337/gofmt-action@v1.0.3
 
       - name: Get dependencies
-          run: |
-            go get -v -t -d ./...
-            if [ -f Gopkg.toml ]; then
-             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-             dep ensure
-            fi
+        run: |
+          go get -v -t -d ./...
+          if [ -f Gopkg.toml ]; then
+           curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+           dep ensure
+          fi
 
       - name: CodeCov
         run: |
