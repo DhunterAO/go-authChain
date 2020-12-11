@@ -44,21 +44,21 @@ func TestLoadECDSAFile(t *testing.T) {
 	checkKey(key1)
 }
 
-func TestSaveAndLoad(t *testing.T) {
-	fileName := "../../data/keys/test.key"
-	sk, _ := GenerateKey()
-	err := SaveECDSA(fileName, sk)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	sk2, err := LoadECDSA(fileName)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if *BytesToPubkey(CompressPubkey(&sk.PublicKey)) != *BytesToPubkey(CompressPubkey(&sk2.PublicKey)) {
-		t.Log(BytesToPubkey(CompressPubkey(&sk.PublicKey)))
-		t.Log(BytesToPubkey(CompressPubkey(&sk2.PublicKey)))
-	}
-}
+//func TestSaveAndLoad(t *testing.T) {
+//	fileName := "../../data/keys/test.key"
+//	sk, _ := GenerateKey()
+//	err := SaveECDSA(fileName, sk)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	sk2, err := LoadECDSA(fileName)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	if *BytesToPubkey(CompressPubkey(&sk.PublicKey)) != *BytesToPubkey(CompressPubkey(&sk2.PublicKey)) {
+//		t.Log(BytesToPubkey(CompressPubkey(&sk.PublicKey)))
+//		t.Log(BytesToPubkey(CompressPubkey(&sk2.PublicKey)))
+//	}
+//}
