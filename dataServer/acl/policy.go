@@ -1,20 +1,19 @@
 package acl
 
 import (
-	"goauth/common/authorization"
-	"goauth/common/operation"
-	"goauth/util/types"
+	commonType "github.com/DhunterAO/goAuthChain/common/types"
+	serverType "github.com/DhunterAO/goAuthChain/dataServer/server/types"
 	"strings"
 )
 
 type Policy struct {
 	SubAttr  string
 	ObjAttr  string
-	OptAttrs operation.OpCode
-	EnvAttr  authorization.Duration
+	OptAttrs serverType.OpCode
+	EnvAttr  commonType.Duration
 }
 
-func (policy *Policy) CheckOperation(gm bool, subAttrs []string, objAttrs []string, op operation.OpCode, timestamp types.Timestamp) bool {
+func (policy *Policy) CheckOperation(gm bool, subAttrs []string, objAttrs []string, op serverType.OpCode, timestamp commonType.Timestamp) bool {
 	if !policy.EnvAttr.ContainTime(timestamp) {
 		return false
 	}
@@ -62,7 +61,7 @@ type PolicyList struct {
 	Policies []*Policy
 }
 
-func (pl *PolicyList) CheckOperation(gm bool, subAttrs []string, objAttrs []string, op operation.OpCode, timestamp types.Timestamp) bool {
+func (pl *PolicyList) CheckOperation(gm bool, subAttrs []string, objAttrs []string, op serverType.OpCode, timestamp commonType.Timestamp) bool {
 	for _, policy := range pl.Policies {
 		if policy.CheckOperation(gm, subAttrs, objAttrs, op, timestamp) {
 			return true

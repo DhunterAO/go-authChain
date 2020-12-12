@@ -1,7 +1,7 @@
 package types
 
 import (
-	util2 "goauth/util"
+	"github.com/DhunterAO/goAuthChain/common"
 	"math/rand"
 )
 
@@ -10,7 +10,7 @@ const StudentIDLength = 10
 type StudentID [StudentIDLength]byte
 
 func (stuID *StudentID) ToHex() string {
-	return string(util2.Expand(stuID[:]))
+	return string(common.Expand(stuID[:]))
 }
 
 func (stuID *StudentID) ToBytes() []byte {

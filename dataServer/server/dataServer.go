@@ -4,16 +4,16 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/DhunterAO/goAuthChain/authServer/blockchain"
+	"github.com/DhunterAO/goAuthChain/common/authorization"
+	"github.com/DhunterAO/goAuthChain/common/operation"
+	"github.com/DhunterAO/goAuthChain/dataServer/acl"
+	"github.com/DhunterAO/goAuthChain/dataServer/db"
+	"github.com/DhunterAO/goAuthChain/log"
+	"github.com/DhunterAO/goAuthChain/util/fileutil"
+	"github.com/DhunterAO/goAuthChain/util/types"
 	"github.com/kataras/iris"
 	"github.com/syndtr/goleveldb/leveldb"
-	"goauth/authServer/blockchain"
-	"goauth/common/authorization"
-	"goauth/common/operation"
-	"goauth/dataServer/acl"
-	"goauth/dataServer/db"
-	"goauth/log"
-	"goauth/util/fileutil"
-	"goauth/util/types"
 	"math"
 )
 
@@ -22,7 +22,7 @@ var DataPathLack = errors.New("the parameter dataPath must be needed")
 type DataServer struct {
 	dataDB *leveldb.DB
 	Acl    *acl.List
-	Bc     *blockchain.Blockchain
+	Bc     *Blockchain
 	App    *iris.Application
 	Port   string
 

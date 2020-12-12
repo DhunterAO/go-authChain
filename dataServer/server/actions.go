@@ -2,14 +2,14 @@ package server
 
 import (
 	"fmt"
+	"github.com/DhunterAO/goAuthChain/common/types"
+	"github.com/DhunterAO/goAuthChain/crypto"
+	types2 "github.com/DhunterAO/goAuthChain/dataServer/server/types"
 	"github.com/kataras/iris"
-	"goauth/common/operation"
-	"goauth/crypto"
-	"goauth/util/types"
 )
 
 func postOperation(ctx iris.Context) {
-	op := new(operation.Operation)
+	op := new(types2.Operation)
 	err := ctx.ReadJSON(op)
 	if err != nil {
 		fmt.Println(err)
@@ -18,7 +18,7 @@ func postOperation(ctx iris.Context) {
 	ctx.Write(processOperation(op))
 }
 
-func processOperation(op *operation.Operation) []byte {
+func processOperation(op *types2.Operation) []byte {
 	//fmt.Println(op.OpCode)
 	pk, err := crypto.RecoverPkFromSig(op.CalcHash(), op.Signature)
 	if err != nil {
@@ -37,7 +37,7 @@ func processOperation(op *operation.Operation) []byte {
 	//fmt.Println("optAttr: ", optAttr)
 	envAttr := types.CurrentTime()
 	//fmt.Println("envAttrs: ", envAttr)
-	if (op.OpCode == operation.OP_ADD && len(objAttrs) == 0) || dataServer.Acl.CheckOperation(gm, subAttrs, objAttrs, optAttr, envAttr) {
+	if (op.OpCode == types2.OP_ADD && len(objAttrs) == 0) || dataServer.Acl.CheckOperation(gm, subAttrs, objAttrs, optAttr, envAttr) {
 		return dataServer.ProcessOperation(op)
 	}
 	return []byte("no Permission")

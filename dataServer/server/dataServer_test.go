@@ -3,12 +3,12 @@ package server
 //
 //import (
 //	"fmt"
-//	"goauth/authServer/blockchain"
-//	"goauth/common/operation"
-//	"goauth/crypto"
-//	"goauth/crypto/types"
-//	db2 "goauth/dataServer/db"
-//	"goauth/log"
+//	"github.com/DhunterAO/goAuthChain/authServer/blockchain"
+//	"github.com/DhunterAO/goAuthChain/common/operation"
+//	"github.com/DhunterAO/goAuthChain/crypto"
+//	"github.com/DhunterAO/goAuthChain/crypto/types"
+//	db2 "github.com/DhunterAO/goAuthChain/dataServer/db"
+//	"github.com/DhunterAO/goAuthChain/log"
 //	"os"
 //	"testing"
 //)
