@@ -2,7 +2,7 @@ package pbftTypes
 
 import (
 	"fmt"
-	types2 "github.com/DhunterAO/goAuthChain/authServer/blockchain/types"
+	types2 "github.com/DhunterAO/goAuthChain/blockchain/types"
 	"github.com/DhunterAO/goAuthChain/crypto"
 	"github.com/DhunterAO/goAuthChain/crypto/types"
 	"testing"

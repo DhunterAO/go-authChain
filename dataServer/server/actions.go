@@ -2,7 +2,7 @@ package server
 
 import (
 	"fmt"
-	"github.com/DhunterAO/goAuthChain/common/types"
+	commonType "github.com/DhunterAO/goAuthChain/common/types"
 	"github.com/DhunterAO/goAuthChain/crypto"
 	types2 "github.com/DhunterAO/goAuthChain/dataServer/server/types"
 	"github.com/kataras/iris"
@@ -35,7 +35,7 @@ func processOperation(op *types2.Operation) []byte {
 	//fmt.Println("objAttrs: ", objAttrs)
 	optAttr := op.OpCode
 	//fmt.Println("optAttr: ", optAttr)
-	envAttr := types.CurrentTime()
+	envAttr := commonType.CurrentTime()
 	//fmt.Println("envAttrs: ", envAttr)
 	if (op.OpCode == types2.OP_ADD && len(objAttrs) == 0) || dataServer.Acl.CheckOperation(gm, subAttrs, objAttrs, optAttr, envAttr) {
 		return dataServer.ProcessOperation(op)

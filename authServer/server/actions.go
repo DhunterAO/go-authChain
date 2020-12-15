@@ -3,12 +3,11 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	types2 "github.com/DhunterAO/goAuthChain/authServer/blockchain/types"
 	"github.com/DhunterAO/goAuthChain/authServer/consensus/pbft/pbftTypes"
-	"github.com/DhunterAO/goAuthChain/common/authorization"
+	types2 "github.com/DhunterAO/goAuthChain/blockchain/types"
+	"github.com/DhunterAO/goAuthChain/common"
+	"github.com/DhunterAO/goAuthChain/common/netutil"
 	"github.com/DhunterAO/goAuthChain/crypto/types"
-	util2 "github.com/DhunterAO/goAuthChain/util"
-	"github.com/DhunterAO/goAuthChain/util/netutil"
 	"github.com/kataras/iris"
 	"os"
 	"time"
@@ -70,7 +69,7 @@ func getAuthorizationPool(ctx iris.Context) {
 
 func getGlobalState(ctx iris.Context) {
 	fmt.Println("get global state")
-	_, err := ctx.Write(util2.PrettyPrintJson(authServer.Bc.State.ToJson()))
+	_, err := ctx.Write(common.PrettyPrintJson(authServer.Bc.State.ToJson()))
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -79,7 +78,7 @@ func getGlobalState(ctx iris.Context) {
 func postAuthorization(ctx iris.Context) {
 	fmt.Println("receive authorization")
 
-	auth := new(authorization.Authorization)
+	auth := new(types2.Authorization)
 	if err := ctx.ReadJSON(auth); err != nil {
 		fmt.Println(err)
 		_, _ = ctx.Writef("json format of authorization received")

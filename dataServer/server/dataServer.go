@@ -4,14 +4,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/DhunterAO/goAuthChain/authServer/blockchain"
-	"github.com/DhunterAO/goAuthChain/common/authorization"
-	"github.com/DhunterAO/goAuthChain/common/operation"
+	"github.com/DhunterAO/goAuthChain/blockchain"
+	"github.com/DhunterAO/goAuthChain/common/fileutil"
+	commonType "github.com/DhunterAO/goAuthChain/common/types"
 	"github.com/DhunterAO/goAuthChain/dataServer/acl"
 	"github.com/DhunterAO/goAuthChain/dataServer/db"
+	dataServerType "github.com/DhunterAO/goAuthChain/dataServer/server/types"
 	"github.com/DhunterAO/goAuthChain/log"
-	"github.com/DhunterAO/goAuthChain/util/fileutil"
-	"github.com/DhunterAO/goAuthChain/util/types"
 	"github.com/kataras/iris"
 	"github.com/syndtr/goleveldb/leveldb"
 	"math"
@@ -21,8 +20,8 @@ var DataPathLack = errors.New("the parameter dataPath must be needed")
 
 type DataServer struct {
 	dataDB *leveldb.DB
-	Acl    *acl.List
-	Bc     *Blockchain
+	Acl    *acl.PolicyList
+	Bc     *blockchain.Blockchain
 	App    *iris.Application
 	Port   string
 
@@ -80,14 +79,14 @@ func (dt *DataServer) Start() {
 	}
 }
 
-func LoadAcList(filePath string) (*acl.List, error) {
+func LoadAcList(filePath string) (*acl.PolicyList, error) {
 	var cfg []interface{}
 	err := fileutil.LoadJson(filePath, &cfg)
 	if err != nil {
 		return nil, err
 	}
 	fmt.Println(cfg)
-	var acList = &acl.List{}
+	var acList = &acl.PolicyList{}
 	for _, policy := range cfg {
 		pol := policy.(map[string]interface{})
 		subAttr := pol["subAttr"].(string)
@@ -100,10 +99,10 @@ func LoadAcList(filePath string) (*acl.List, error) {
 		acList.Policies = append(acList.Policies, &acl.Policy{
 			SubAttr:  subAttr,
 			ObjAttr:  objAttr,
-			OptAttrs: operation.OpCode(optAttr),
-			EnvAttr: authorization.Duration{
-				Start: types.Timestamp(start),
-				End:   types.Timestamp(end),
+			OptAttrs: dataServerType.OpCode(optAttr),
+			EnvAttr: commonType.Duration{
+				Start: commonType.Timestamp(start),
+				End:   commonType.Timestamp(end),
 			},
 		})
 	}
@@ -130,9 +129,9 @@ func (dt *DataServer) GetAttrsForKey(key []byte) []string {
 	return attrs
 }
 
-func (dt *DataServer) ProcessOperation(op *operation.Operation) []byte {
+func (dt *DataServer) ProcessOperation(op *dataServerType.Operation) []byte {
 	switch op.OpCode {
-	case operation.OP_QRY:
+	case dataServerType.OP_QRY:
 		key := op.Key
 		value, err := db.Get(dt.dataDB, key)
 		if err != nil {
@@ -140,7 +139,7 @@ func (dt *DataServer) ProcessOperation(op *operation.Operation) []byte {
 			return []byte{}
 		}
 		return value
-	case operation.OP_ADD:
+	case dataServerType.OP_ADD:
 		key := op.Key
 		value := op.Value
 		err := db.Put(dt.dataDB, key, value)

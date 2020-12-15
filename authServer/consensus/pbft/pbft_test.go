@@ -3,7 +3,7 @@ package pbft
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/DhunterAO/goAuthChain/authServer/blockchain"
+	"github.com/DhunterAO/goAuthChain/blockchain"
 	"github.com/DhunterAO/goAuthChain/log"
 	"os"
 	"testing"

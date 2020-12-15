@@ -1,13 +1,13 @@
 package types
 
 import (
-	"fmt"
 	"testing"
 )
 
 func TestAuthList_Add(t *testing.T) {
 	auth := GenerateTestAuthorization()
 	authList := NewAuthList()
-	authList.Add(auth)
-	fmt.Println(authList.ToString())
+	if authList.Add(auth) == false {
+		t.Error("add authorization failed")
+	}
 }

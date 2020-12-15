@@ -1,7 +1,7 @@
 package blockchain
 
 import (
-	blockType "github.com/DhunterAO/goAuthChain/authServer/blockchain/types"
+	blockType "github.com/DhunterAO/goAuthChain/blockchain/types"
 	commonType "github.com/DhunterAO/goAuthChain/common/types"
 	"github.com/DhunterAO/goAuthChain/crypto"
 	"github.com/DhunterAO/goAuthChain/crypto/types"

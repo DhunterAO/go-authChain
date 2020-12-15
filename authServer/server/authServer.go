@@ -2,8 +2,8 @@ package server
 
 import (
 	"fmt"
-	"github.com/DhunterAO/goAuthChain/authServer/blockchain"
 	"github.com/DhunterAO/goAuthChain/authServer/consensus/pbft"
+	"github.com/DhunterAO/goAuthChain/blockchain"
 	"github.com/DhunterAO/goAuthChain/log"
 	"github.com/kataras/iris"
 )
